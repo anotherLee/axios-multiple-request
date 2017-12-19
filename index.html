@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Axios</title>
+	<style>
+		.btn{
+			display:block;
+			width:100px;
+			height:40px;
+			border:1px solid #eee;
+			border-radius:5px;
+			margin:100px auto 0;
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+	<button class="btn">点击</button>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		var btn = document.getElementsByClassName('btn')[0]
+		function request() {
+			var now = new Date()
+			console.log(now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ':' + now.getMilliseconds())
+			axios.all([axios.get('http://api.jirengu.com/readme2html.php?url=https://github.com/jirengu/server-mock'), axios.get('./test22.json'), axios.get('http://api.jirengu.com/fm/getChannels.php')])
+			.then(axios.spread((res1,res2,res3)=>{
+				console.log('------------')
+				var later = new Date()
+				console.log(later.getHours() + ':' + later.getMinutes() + ':' + later.getSeconds() + ':' + later.getMilliseconds())
+				console.log(res1)
+				console.log(res2)
+				console.log(res3)
+			})).catch(function () { alert('出错了')})
+		}
+		btn.onclick = request
+	</script>
+
+</body>
+</html>
